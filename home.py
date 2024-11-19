@@ -1,25 +1,74 @@
 import streamlit as st
-from streamlit_lottie import st_lottie
-from streamlit_lottie import st_lottie_spinner
-import requests
+import pandas as pd
 
-def load_lottieurl(url: str):
-    r = requests.get(url)
-    if r.status_code != 200:
-        return None
-    return r.json()
+st.title("Webite Developing using Python")
+st.header("Webite Developing using Python")
 
-lottie_url_hello = "https://lottie.host/92c3dfeb-937f-44be-8aef-dc6480e2b4e8/uRdHEL97X0.json"
-lottie_hello = load_lottieurl(lottie_url_hello)
-st_lottie(lottie_hello,key="hello")
+st.subheader("Ramnarin Karuna")
 
-st.page_link("home.py", label="หน้าแรก", icon="🏠")
+dt=pd.read_csv('./data/iris-3.csv')
+st.header("ข้อมูลดอกไม้")
+st.write(dt.head(10))
 
-st.page_link("pages/1🧮Statistic.py", label="การนำเสนอข้อมูลด้วยสถิติ", icon="1️⃣")
-st.page_link("pages/2📊Chart.py", label="การนำเสนอข้อมูลด้วยการจินตทัศน์ข้อมูล", icon="2️⃣", disabled=False)
-st.page_link("pages/3🎡KNNClassify.py", label="การจำแนกข้อมูลด้วยเทคนิค K-NN", icon="3️⃣", disabled=False)
-st.page_link("pages/4🏝️DecisionTreeClassify.py", label="การจำแนกข้อมูลด้วยเทคนิคDecisionTree", icon="4️⃣", disabled=False)
-st.page_link("pages/5🥗NaivebayeClassify.py", label="การจำแนกข้อมูลด้วยเทคนิคNaiveBayes", icon="5️⃣", disabled=False)
-st.page_link("pages/6📈RegressionPrediction.py", label="การพยากรณ์ข้อมูลด้วยเทคนิคRegression", icon="6️⃣", disabled=False)
+st.subheader("สถิติข้อมูลดอกไม้ Iris")
+st.write('ผลรวม')
+cl1,cl2,cl3,cl4=st.columns(4)
+cl1.write(dt['sepal length'].sum())
+cl2.write(dt['sepal width'].sum())
+cl3.write(dt['petal length'].sum())
+cl4.write(dt['petal width'].sum())
 
-st.page_link("http://www.google.com", label="Google", icon="🌎")
+st.write("กราฟแท่ง")
+a=dt['sepal length'].sum()
+b=dt['sepal width'].sum()
+c=dt['petal length'].sum()
+d=dt['petal width'].sum()
+dx=[a,b,c,d]
+cx=pd.DataFrame(dx,index=["sepal length", "sepal width", "petal length","petal width"])
+st.bar_chart(cx)
+
+st.write('ค่าเฉลี่ย')
+cl11,cl12,cl13,cl14=st.columns(4)
+cl11.write(dt['sepal length'].mean())
+cl12.write(dt['sepal width'].mean())
+cl13.write(dt['petal length'].mean())
+cl14.write(dt['petal width'].mean())
+
+st.write("Area_Chart")
+a=dt['sepal length'].mean()
+b=dt['sepal width'].mean()
+c=dt['petal length'].mean()
+d=dt['petal width'].mean()
+dxt=[a,b,c,d]
+cxx=pd.DataFrame(dxt,index=["sepallength", "sepalwidth", "petallength","petalwidth"])
+st.area_chart(cxx)
+
+
+st.write('ค่ามากที่สุด')
+cl21,cl22,cl23,cl24=st.columns(4)
+cl21.write(dt['sepallength'].max())
+cl22.write(dt['sepalwidth'].max())
+cl23.write(dt['petallength'].max())
+cl24.write(dt['petalwidth'].max())
+
+import numpy as np
+import matplotlib.pyplot as plt
+labels = ['Men', 'Women','','']
+sizes = [35,25,15,25]
+explode = (0, 0.1,0,0) 
+fig1, ax1 = plt.subplots()
+ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
+        shadow=True, startangle=90)
+st.pyplot(fig1)
+
+
+st.write('ค่าน้อยที่สุด')
+cl31,cl32,cl33,cl34=st.columns(4)
+cl31.write(dt['sepallength'].min())
+cl32.write(dt['sepalwidth'].min())
+cl33.write(dt['petallength'].min())
+cl34.write(dt['petalwidth'].min())
+
+st.write("Line_Chart")
+cc=[3,8,1,10]
+st.line_chart(cc)
