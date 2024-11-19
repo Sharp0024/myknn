@@ -4,6 +4,7 @@ import pandas as pd
 st.title("Webite Developing using Python")
 st.header("Webite Developing using Python")
 
+st.image('./imp/sharp.jpg')
 st.subheader("Ramnarin Karuna")
 
 dt=pd.read_csv('./data/iris-3.csv')
